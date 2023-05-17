@@ -1,0 +1,8 @@
+node_modules
+public
+.env
+.env.local
+configs
+tests.js
+.vscode
+app/utils/constants.js

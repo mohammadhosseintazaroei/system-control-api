@@ -1,0 +1,31 @@
+<div id="frame">
+    <%-include("./layouts/sidepanel.ejs")%>
+    <%-include("./layouts/content.ejs")%>
+</div>
+await   exec('shutdown -a', (err, stdout, stderr) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log(stderr)
+    console.log(stdout);
+  });
+  const { timeout } = req.params;
+  exec(`shutdown -s -t ${timeout}`, (err, stdout, stderr) => {
+    if (err) {
+      console.error("1",err);
+    }
+    console.log(stdout);
+  
+    // cancel shutdown after 30 seconds
+    setTimeout(() => {
+      exec('shutdown -a', (err, stdout, stderr) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        console.log(stderr)
+        console.log(stdout);
+      });
+    }, (timeout -5 )*1000);
+  });
